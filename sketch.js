@@ -32,7 +32,7 @@ function setupGIFRecorder() {
   gif = new GIF({
     workers: 2,
     quality: 10,
-    transparent: 'rgba(0,0,0,0)',
+    transparent: '0x00FF00',
     width: widthCanvas,
     height: heightCanvas,
     workerScript: 'libs/gif.worker.js'
@@ -436,6 +436,7 @@ function togglePlay() {
 
 function draw() {
   clear();
+  background("#00FF00");
   
   
   // Mettre à jour le temps si en mode lecture
