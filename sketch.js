@@ -32,6 +32,7 @@ function setupGIFRecorder() {
   gif = new GIF({
     workers: 2,
     quality: 10,
+    transparent: 'rgba(0,0,0,0)',
     width: widthCanvas,
     height: heightCanvas,
     workerScript: 'libs/gif.worker.js'
@@ -110,6 +111,8 @@ function captureFrame() {
   if (recordingFrameIndex < timeline.length - 1) {
     // Calculer le délai jusqu'au prochain keyframe
     delay = timeline[recordingFrameIndex + 1].time - timeline[recordingFrameIndex].time;
+  } else {
+    delay = totalDuration - timeline[recordingFrameIndex].time;
   }
   
   // Limiter le délai minimum à 100ms pour éviter les problèmes
@@ -127,7 +130,7 @@ function captureFrame() {
     select('.time-display').html((currentTime/1000).toFixed(2) + "s");
     
     // Attendre que le rendu soit mis à jour avant de capturer la frame suivante
-    setTimeout(captureFrame, 100);
+    setTimeout(captureFrame, 2000);
   } else {
     // Toutes les frames ont été capturées, rendre le GIF
     document.getElementById('record-status').innerHTML = 'Génération du GIF en cours...';
